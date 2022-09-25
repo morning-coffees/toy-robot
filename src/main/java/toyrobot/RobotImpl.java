@@ -7,15 +7,19 @@ public class RobotImpl implements Robot {
 	private String name;
 
 	public RobotImpl(Coordinate location, Movement nextMove, Table table, String robotName) {
-		if (table.isValidLocation(location.getX(), location.getY())) {
+		if (isValidRobot(location, nextMove, table, robotName)) {
 			table.setOccupant(location.getX(), location.getY(), this);
 			this.location = location;
 			this.nextMove = nextMove;
 			this.table = table;
 			this.name = robotName;
 		} else {
-			throw new IllegalArgumentException("Someone is already here!");
+			throw new IllegalArgumentException("Something is wrong with this robot");
 		}
+	}
+
+	public Movement getNextMove() {
+		return nextMove;
 	}
 
 	public void setNextMove(Movement nextMove) {
@@ -41,6 +45,11 @@ public class RobotImpl implements Robot {
 		}
 	}
 
+	public boolean isValidRobot(Coordinate location, Movement nextMove, Table table, String robotName) {
+		boolean validLocation = table.isValidLocation(location.getX(), location.getY());
+		return validLocation && nextMove != null && table != null && robotName != null;
+	}
+	
 	private boolean isValidCoordinates(Integer xTmp, Integer yTmp) {
 		return xTmp <= table.getxLength() && yTmp <= table.getyLength() && xTmp >= 0 && yTmp >= 0;
 	}

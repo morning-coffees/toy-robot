@@ -12,6 +12,16 @@ public enum Movement {
 		this.y = y;
 	}
 
+	public static Movement getEquivalent(String movement) {
+		return switch (movement) {
+		case "NORTH" -> NORTH;
+		case "EAST" -> EAST;
+		case "SOUTH" -> SOUTH;
+		case "WEST" -> WEST;
+		default -> null;
+		};
+	}
+
 	public Integer getX() {
 		return x;
 	}
@@ -20,21 +30,21 @@ public enum Movement {
 		return y;
 	}
 
-	public Movement getLeft(Movement movement) {
-		return switch (movement) {
-		case NORTH	-> WEST;
-		case WEST	-> SOUTH;
-		case SOUTH	-> EAST;
-		case EAST	-> NORTH;
+	public Movement getLeft() {
+		return switch (this) {
+		case NORTH -> WEST;
+		case WEST -> SOUTH;
+		case SOUTH -> EAST;
+		case EAST -> NORTH;
 		};
 	}
 
-	public Movement getRight(Movement movement) {
-		return switch (movement) {
-		case NORTH	-> EAST;
-		case EAST	-> SOUTH;
-		case SOUTH	-> WEST;
-		case WEST	-> NORTH;
+	public Movement getRight() {
+		return switch (this) {
+		case NORTH -> EAST;
+		case EAST -> SOUTH;
+		case SOUTH -> WEST;
+		case WEST -> NORTH;
 		};
 	}
 }
