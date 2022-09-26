@@ -1,4 +1,9 @@
-package toyrobot;
+package toyrobot.blueprint.implementation;
+
+import toyrobot.Coordinate;
+import toyrobot.Movement;
+import toyrobot.blueprint.Robot;
+import toyrobot.blueprint.Table;
 
 public class RobotImpl implements Robot {
 	private Coordinate location;
@@ -8,7 +13,7 @@ public class RobotImpl implements Robot {
 
 	public RobotImpl(Coordinate location, Movement nextMove, Table table, String robotName) {
 		if (isValidRobot(location, nextMove, table, robotName)) {
-			table.setOccupant(location.getX(), location.getY(), this);
+			table.setOccupant(location, this);
 			this.location = location;
 			this.nextMove = nextMove;
 			this.table = table;
@@ -31,7 +36,7 @@ public class RobotImpl implements Robot {
 		Integer xTmp = location.getX() + move.getX();
 		Integer yTmp = location.getY() + move.getY();
 		if (isValidCoordinates(xTmp, yTmp)) {
-			boolean setOccupantSuccess = table.setOccupant(xTmp, yTmp, this);
+			boolean setOccupantSuccess = table.setOccupant(new Coordinate(xTmp, yTmp), this);
 			if (setOccupantSuccess) {
 				table.removeOccupant(location.getX(), location.getY());
 				location.setX(xTmp);
@@ -46,7 +51,7 @@ public class RobotImpl implements Robot {
 	}
 
 	public boolean isValidRobot(Coordinate location, Movement nextMove, Table table, String robotName) {
-		boolean validLocation = table.isValidLocation(location.getX(), location.getY());
+		boolean validLocation = location != null && table.isValidLocation(location.getX(), location.getY());
 		return validLocation && nextMove != null && table != null && robotName != null;
 	}
 	
@@ -73,6 +78,11 @@ public class RobotImpl implements Robot {
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public Coordinate getLocation() {
+		return location;
 	}
 
 }

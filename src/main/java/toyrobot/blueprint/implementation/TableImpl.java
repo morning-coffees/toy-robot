@@ -1,7 +1,11 @@
-package toyrobot;
+package toyrobot.blueprint.implementation;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import toyrobot.Coordinate;
+import toyrobot.blueprint.Robot;
+import toyrobot.blueprint.Table;
 
 public class TableImpl implements Table {
 	
@@ -24,17 +28,16 @@ public class TableImpl implements Table {
 			}
 		}
 	}
+
+	public boolean isValidLocation(Integer x, Integer y) {
+		Robot value = tableSlots.get(getTableKey(x, y));
+		return x <= xLength && y <= yLength && x >= 0 && y >= 0 && value == null;
+	}
 	
-	
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param occupant
-	 * @return TRUE if successful, FALSE if unsuccessful/invalid data.
-	 */
 	@Override
-	public boolean setOccupant(Integer x, Integer y, Robot occupant) {
+	public boolean setOccupant(Coordinate location, Robot occupant) {
+		int x = location.getX();
+		int y = location.getY();
 		boolean success = false;
 		if(isValidLocation(x, y)) {
 			Robot value = tableSlots.get(getTableKey(x, y));
@@ -44,15 +47,6 @@ public class TableImpl implements Table {
 			}
 		}
 		return success;
-	}
-
-	public boolean isValidLocation(Integer x, Integer y) {
-		Robot value = tableSlots.get(getTableKey(x, y));
-		return x <= xLength && y <= yLength && x >= 0 && y >= 0 && value == null;
-	}
-	
-	public boolean setOccupant(Coordinate location, Robot occupant) {
-		return setOccupant(location.getX(), location.getY(), occupant);
 	}
 
 	@Override
@@ -100,5 +94,16 @@ public class TableImpl implements Table {
 	@Override
 	public Map<String, Robot> getTableSlots() {
 		return tableSlots;
+	}
+
+	@Override
+	public int getRobotCountInTable() {
+		int count = 0;
+		for (Object value : tableSlots.values()) {
+		    if(value != null) {
+		    	count++;
+		    }
+		}
+		return count;
 	}
 }

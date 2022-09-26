@@ -1,8 +1,15 @@
-package toyrobot;
+package toyrobot.blueprint.implementation;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import toyrobot.Commands;
+import toyrobot.Coordinate;
+import toyrobot.Movement;
+import toyrobot.blueprint.Robot;
+import toyrobot.blueprint.RobotController;
+import toyrobot.blueprint.Table;
 
 public class RobotControllerImpl implements RobotController {
 
@@ -40,7 +47,7 @@ public class RobotControllerImpl implements RobotController {
 			System.out.print("Robot " + robotNumber.toString() + " Details (PLACE x,y,DIRECTION): ");
 			String command = input.next();
 			try {
-				if ("PLACE".equals(command.toUpperCase())) {
+				if (Commands.PLACE.name().equals(command.toUpperCase())) {
 					String parameter = input.next();
 					String[] parameters = parameter.split(",");
 					if (parameters.length == 3) {
@@ -70,18 +77,21 @@ public class RobotControllerImpl implements RobotController {
 	@Override
 	public void receiveCommands() {
 		System.out.println("Available Commands: MOVE,LEFT,RIGHT,REPORT,END");
-		System.out.println("Enter Commands (COMMAND ROBOTNUMBER):");
 		while(true) {
+			System.out.println("Enter Command (COMMAND ROBOTNUMBER):");
 			String command = input.next();
+
+			if("END".equals(command)) {
+				System.out.println("Exiting..");
+				break;
+			}
+			
 			Integer parameter = input.nextInt();
 
 			if (robotList.containsKey(parameter) && Commands.getEquivalent(command) != null) {
 				parseCommand(command, robotList.get(parameter));
 			} else {
 				System.out.println("Invalid Command or parameter");
-			}
-			if("END".equals(command)) {
-				break;
 			}
 			table.printTable();
 		}

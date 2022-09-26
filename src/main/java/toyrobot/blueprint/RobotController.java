@@ -1,4 +1,4 @@
-package toyrobot;
+package toyrobot.blueprint;
 
 public interface RobotController {
 	public void start();

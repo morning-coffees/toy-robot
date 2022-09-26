@@ -13,7 +13,7 @@ public enum Movement {
 	}
 
 	public static Movement getEquivalent(String movement) {
-		return switch (movement) {
+		return switch (movement.toUpperCase()) {
 		case "NORTH" -> NORTH;
 		case "EAST" -> EAST;
 		case "SOUTH" -> SOUTH;

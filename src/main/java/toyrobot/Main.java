@@ -1,5 +1,8 @@
 package toyrobot;
 
+import toyrobot.blueprint.RobotController;
+import toyrobot.blueprint.implementation.RobotControllerImpl;
+
 public class Main {
 
 	public static void main(String[] args) {
