@@ -35,11 +35,15 @@ public class RobotControllerImpl implements RobotController {
 
 	@Override
 	public void setTableDetails() {
-		System.out.print("Table # columns: ");
-		int x = input.nextInt();
-		System.out.print("Table # rows: ");
-		int y = input.nextInt();
-		table = new TableImpl(x, y);
+		try {
+			System.out.print("Table # columns: ");
+			int x = input.nextInt();
+			System.out.print("Table # rows: ");
+			int y = input.nextInt();
+			table = new TableImpl(x, y);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Provided invalid agument, ending the program now.");
+		}
 	}
 
 	@Override
