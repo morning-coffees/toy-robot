@@ -1,6 +1,5 @@
-# toy-robot-prosource
-
-Coding Challenge from ProSource  
+# toy-robot
+  
 The Toy Robot is based on a blog post by Jon Eaves. Read it here
 https://joneaves.wordpress.com/2014/07/21/toy-robot-coding-test/
 <br /><br />
